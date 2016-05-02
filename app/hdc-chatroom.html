@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/polymer/polymer.html"/>
+<link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html"/>
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html"/>
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"/>
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html"/>
+
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+
+ <link rel="import" href="../app/hdc-online-users.html"/>
+ <link rel="import" href="../app/hdc-chat-thread.html"/>
+
+<link rel="stylesheet" href="..app/style.css">
+
+<dom-module id="hdc-chatroom">
+     <style>
+    :host {
+      font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
+      display: block;
+    }
+  </style>
+
+  <template>
+
+    <paper-drawer-panel>
+
+      <hdc-online-users drawer></hdc-online-users>
+
+      <hdc-chat-thread main></hdc-chat-thread>
+
+    </paper-drawer-panel>
+    
+  </template>
+    
+     <script>
+        Polymer({
+            is: "hdc-chatroom"
+        });
+    </script>
+</dom-module>
+    

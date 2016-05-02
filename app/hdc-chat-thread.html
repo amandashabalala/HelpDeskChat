@@ -1,0 +1,84 @@
+<link rel="import" href="../bower_components/polymer/polymer.html"/>
+<link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html"/>
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html"/>
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"/>
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html"/>
+
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+
+<script src="../bower_components/firebase/firebase.js"></script>
+<link rel="import" href="../bower_components/firebase-element/firebase.html">
+<link rel="import" href="../bower_components/firebase-element/firebase-collection.html">
+
+<link rel="stylesheet" href="..app/style.css">
+<link rel="import" href="../app/hdc-header.html"/>
+
+<dom-module id="hdc-chat-thread">
+     
+  <template>
+     <style>
+      :host {
+        @apply(--layout-vertical);
+      }
+      .list {
+        @apply(--layout-flex);
+        overflow: auto;
+      }
+      paper-input {
+        padding: 10px;
+      }
+    </style>
+
+    <hdc-header label="Help Desk Chat"></hdc-header>
+    
+    <firebase-collection
+      order-by-child="dateTime"
+      limit-to-last="15"
+      location="https://helpdeskchat.firebaseio.com/"
+      data="{{messages}}"></firebase-collection>
+      
+   <div class="list">
+    <template is="dom-repeat" items="{{messages}}" as="message">
+          <paper-item>
+          <paper-item-body two-line>
+            <iron-icon icon="communication:textsms"></iron-icon>
+                <div><span>{{message.dateTime}}:</span></div>
+            <div secondary>{{message.messageText}}</div>
+          </paper-item-body>
+        </paper-item>
+    </template>
+    </div>
+    
+    <paper-input label="New Message:" on-keyup="_sendMessage"></paper-input>
+    
+  </template>
+    
+     <script>
+        Polymer({
+            is: "hdc-chat-thread",
+         
+            
+            _sendMessage: function(e){
+                if(e.keyCode == 13){
+                    var curDate = Date.now();
+                    this.push('messages',{
+                        dateTime: curDate,
+                        messageText: e.target.value,
+                        user: {}
+                    });
+                    e.target.value='';
+                }
+            }
+            
+        });
+    </script>
+</dom-module>
+    
